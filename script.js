@@ -42,10 +42,12 @@ function wireSignupForm(formId) {
     const button = form.querySelector('.signup-button');
     if (button) button.disabled = true;
 
+    alreadySignedUp = true;
     try {
       await submitSignupEmail(email);
       showSignedUpState();
     } catch (err) {
+      alreadySignedUp = false;
       if (button) button.disabled = false;
     }
   });
