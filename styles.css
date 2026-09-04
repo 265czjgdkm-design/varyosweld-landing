@@ -1,0 +1,294 @@
+:root {
+  --bg: #0B0F10;
+  --accent: #FF6A35;
+  --secondary: #2B3538;
+  --text: #F2F5F5;
+  --text-muted: #9AA7AA;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header / brand mark */
+
+.site-header {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #1B2326, #0B0F10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-word {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.brand-varyos {
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  font-size: 16px;
+}
+
+.brand-weld {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Hero */
+
+.hero {
+  text-align: center;
+  padding: 48px 0 56px;
+}
+
+.hero h1 {
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 800;
+  margin: 0 0 16px;
+  letter-spacing: -0.5px;
+}
+
+.subhead {
+  color: var(--text-muted);
+  font-size: 18px;
+  max-width: 620px;
+  margin: 0 auto 32px;
+}
+
+.coming-soon-note {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 16px;
+}
+
+/* Signup form */
+
+.signup-form {
+  display: flex;
+  gap: 10px;
+  max-width: 420px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.signup-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--secondary);
+  background: #12181A;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.signup-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.signup-button {
+  padding: 13px 22px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: #0B0F10;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.signup-button:hover {
+  filter: brightness(1.08);
+}
+
+.signup-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.signup-success {
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 auto;
+  max-width: 420px;
+}
+
+/* Problem section */
+
+.problem {
+  padding: 24px 0 56px;
+  border-top: 1px solid var(--secondary);
+}
+
+.problem p {
+  color: var(--text-muted);
+  font-size: 16px;
+  max-width: 640px;
+  margin: 0 auto 14px;
+  text-align: center;
+}
+
+/* Features */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 24px 0 56px;
+  border-top: 1px solid var(--secondary);
+}
+
+.feature-card {
+  background: #12181A;
+  border: 1px solid var(--secondary);
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.feature-card h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
+.feature-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Mockup */
+
+.mockup-section {
+  padding: 24px 0 56px;
+  border-top: 1px solid var(--secondary);
+  display: flex;
+  justify-content: center;
+}
+
+.phone-frame {
+  width: 260px;
+  border-radius: 32px;
+  background: #12181A;
+  border: 1px solid var(--secondary);
+  padding: 14px;
+}
+
+.phone-screen {
+  border-radius: 22px;
+  overflow: hidden;
+  background: #F2F5F5;
+}
+
+.phone-banner {
+  background: linear-gradient(135deg, #1B2326, #0B0F10);
+  padding: 20px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.phone-badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.phone-banner-label {
+  color: #F2F5F5;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.phone-tile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #E1E7E9;
+}
+
+.phone-tile:last-child {
+  border-bottom: none;
+}
+
+.phone-tile-label {
+  color: #4B5A5E;
+  font-size: 12px;
+}
+
+.phone-tile-value {
+  color: #0B0F10;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Pricing */
+
+.pricing {
+  text-align: center;
+  padding: 24px 0 56px;
+  border-top: 1px solid var(--secondary);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Footer */
+
+.site-footer {
+  text-align: center;
+  padding: 40px 24px 48px;
+  border-top: 1px solid var(--secondary);
+}
+
+.footer-heading {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 20px;
+}
+
+.footer-brand {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 24px;
+}

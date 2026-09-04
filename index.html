@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Varyos Weld — Coming Soon</title>
+  <meta name="description" content="Weld estimates you can trust, in seconds. Filler-metal consumption, EN 1011-2 cooling time, and preheat temperature calculators, coming soon to iOS and Android." />
+  <link rel="icon" type="image/svg+xml" href="assets/varyos-mark.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-badge">
+        <img src="assets/varyos-mark.svg" alt="" width="20" height="20" />
+      </div>
+      <div class="brand-word">
+        <span class="brand-varyos">VARYOS</span>
+        <span class="brand-weld">WELD</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Weld estimates you can trust, in seconds.</h1>
+      <p class="subhead">
+        The calculator built for fabricators: filler-metal consumption, cooling time, and
+        preheat temperature — accurate, fast, and on your phone.
+      </p>
+
+      <form class="signup-form" id="hero-form" data-role="signup-form">
+        <input
+          type="email"
+          name="email"
+          class="signup-input"
+          placeholder="you@company.com"
+          required
+          aria-label="Email address"
+        />
+        <button type="submit" class="signup-button">Notify me</button>
+      </form>
+      <p class="signup-success" id="hero-success" hidden>You're on the list. We'll email you at launch.</p>
+
+      <p class="coming-soon-note">Coming soon to iOS and Android</p>
+    </section>
+
+    <section class="problem">
+      <p>
+        Filler-metal estimates by hand mean guesswork, wasted rod, and jobs quoted wrong.
+      </p>
+      <p>
+        EN 1011-2 preheat and cooling-time math means digging through spreadsheets and
+        standards tables mid-shift.
+      </p>
+      <p>
+        Varyos Weld puts the calculations fabricators actually need in one place, built for
+        the shop floor, not the office.
+      </p>
+    </section>
+
+    <section class="features">
+      <div class="feature-card">
+        <h3>Filler-Metal Consumption</h3>
+        <p>Calculate exact rod and wire consumption per joint, per job, before you strike an arc.</p>
+      </div>
+      <div class="feature-card">
+        <h3>EN 1011-2 Cooling Time (t8/5)</h3>
+        <p>Get cooling time calculations aligned to EN 1011-2, without opening a standard.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Preheat Temperature</h3>
+        <p>Know the right preheat temperature for your material and joint thickness, instantly.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Saved Calculations &amp; Custom Materials</h3>
+        <p>Build your own material library and keep every past calculation ready for the next job.</p>
+      </div>
+    </section>
+
+    <section class="mockup-section">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-banner">
+            <div class="phone-badge">
+              <img src="assets/varyos-mark.svg" alt="" width="14" height="14" />
+            </div>
+            <span class="phone-banner-label">Weld Estimate</span>
+          </div>
+          <div class="phone-tile">
+            <span class="phone-tile-label">Filler consumption</span>
+            <span class="phone-tile-value">2.847 kg</span>
+          </div>
+          <div class="phone-tile">
+            <span class="phone-tile-label">Arc-on time</span>
+            <span class="phone-tile-value">1.92 h</span>
+          </div>
+          <div class="phone-tile">
+            <span class="phone-tile-label">Preheat temp</span>
+            <span class="phone-tile-value">125 °C</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing">
+      <p>$2.99/month or $19.99/year — launching soon.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-heading">Be first to know when Varyos Weld launches.</p>
+    <form class="signup-form" id="footer-form" data-role="signup-form">
+      <input
+        type="email"
+        name="email"
+        class="signup-input"
+        placeholder="you@company.com"
+        required
+        aria-label="Email address"
+      />
+      <button type="submit" class="signup-button">Notify me</button>
+    </form>
+    <p class="signup-success" id="footer-success" hidden>You're on the list. We'll email you at launch.</p>
+
+    <p class="footer-brand">Varyos Weld — varyosweld.com</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
