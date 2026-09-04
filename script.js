@@ -1,109 +1,55 @@
-// Google's form-response endpoint doesn't send CORS headers, so a `fetch`
-// POST gets its result blocked by the browser even when the submission
-// itself lands. A classic hidden <form> POST into a hidden iframe sidesteps
-// that entirely -- browsers have always allowed cross-origin form posts; we
-// just can't read the response, so we treat the iframe's `load` event as
-// "submitted".
+// Google's form-response endpoint doesn't send CORS headers, so we submit
+// with `mode: 'no-cors'` and can't read the response status. The fetch
+// promise still rejects on a real network failure, though, which is enough
+// to tell "definitely failed" apart from "sent" -- unlike a hidden-iframe
+// POST, whose `load` event fires the same way for a 500 as it does for a 200.
 const FORM_RESPONSE_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdxzjxWewO-7ncfq0S2pgwWvnzllVKYEygO2vhjcxqw5acubw/formResponse';
 const EMAIL_ENTRY_FIELD = 'entry.708179914';
 
+let alreadySignedUp = false;
+
 function submitSignupEmail(email) {
-  return new Promise((resolve) => {
-    const frameName = `signup_frame_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-
-    const iframe = document.createElement('iframe');
-    iframe.name = frameName;
-    iframe.style.display = 'none';
-
-    function cleanUp() {
-      iframe.remove();
-    }
-
-    // The iframe must finish its own initial navigation (about:blank) and
-    // register `frameName` as a browsing context *before* the form submits
-    // targeting it -- otherwise the browser can't resolve that target yet
-    // and opens a brand-new tab instead of posting into the hidden iframe.
-    let submitted = false;
-    let ready = false;
-    let readyFallback;
-
-    function onInitialLoad() {
-      if (ready) return;
-      ready = true;
-      clearTimeout(readyFallback);
-      iframe.removeEventListener('load', onInitialLoad);
-      submitForm();
-    }
-    iframe.addEventListener('load', onInitialLoad);
-    document.body.appendChild(iframe);
-
-    readyFallback = setTimeout(onInitialLoad, 3000);
-
-    function submitForm() {
-      clearTimeout(readyFallback);
-
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = FORM_RESPONSE_URL;
-      form.target = frameName;
-      form.style.display = 'none';
-
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = EMAIL_ENTRY_FIELD;
-      input.value = email;
-      form.appendChild(input);
-
-      const timer = setTimeout(() => {
-        if (!submitted) {
-          submitted = true;
-          resolve(false);
-        }
-        cleanUp();
-        form.remove();
-      }, 8000);
-
-      iframe.addEventListener('load', () => {
-        clearTimeout(timer);
-        if (!submitted) {
-          submitted = true;
-          resolve(true);
-        }
-        cleanUp();
-        form.remove();
-      });
-
-      document.body.appendChild(form);
-      form.submit();
-    }
+  return fetch(FORM_RESPONSE_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: new URLSearchParams({ [EMAIL_ENTRY_FIELD]: email }),
   });
 }
 
-function wireSignupForm(formId, successId) {
+function showSignedUpState() {
+  alreadySignedUp = true;
+  document.querySelectorAll('[data-role="signup-form"]').forEach((form) => {
+    form.hidden = true;
+  });
+  document.querySelectorAll('.signup-success').forEach((success) => {
+    success.hidden = false;
+  });
+}
+
+function wireSignupForm(formId) {
   const form = document.getElementById(formId);
-  const success = document.getElementById(successId);
-  if (!form || !success) return;
+  if (!form) return;
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const emailInput = form.querySelector('input[name="email"]');
+    if (alreadySignedUp) return;
+
+    const emailInput = form.querySelector('input[type="email"]');
     const email = emailInput ? emailInput.value.trim() : '';
     if (!email) return;
 
     const button = form.querySelector('.signup-button');
     if (button) button.disabled = true;
 
-    const ok = await submitSignupEmail(email);
-
-    if (ok) {
-      form.hidden = true;
-      success.hidden = false;
-    } else if (button) {
-      button.disabled = false;
+    try {
+      await submitSignupEmail(email);
+      showSignedUpState();
+    } catch (err) {
+      if (button) button.disabled = false;
     }
   });
 }
 
-wireSignupForm('hero-form', 'hero-success');
-wireSignupForm('footer-form', 'footer-success');
+wireSignupForm('hero-form');
+wireSignupForm('footer-form');

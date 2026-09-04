@@ -106,6 +106,10 @@ main {
   justify-content: center;
 }
 
+.signup-form[hidden] {
+  display: none;
+}
+
 .signup-input {
   flex: 1;
   min-width: 220px;
