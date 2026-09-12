@@ -95,6 +95,28 @@ main {
   margin-top: 16px;
 }
 
+.cta-button {
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #0B0F10;
+  font-weight: 800;
+  font-size: 17px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(255, 106, 53, 0.25);
+}
+
+.cta-button:hover {
+  filter: brightness(1.08);
+}
+
+.cta-note {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin: 14px 0 36px;
+}
+
 /* Signup form */
 
 .signup-form {
