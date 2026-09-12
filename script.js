@@ -39,6 +39,12 @@ function wireSignupForm(formId) {
     const email = emailInput ? emailInput.value.trim() : '';
     if (!email) return;
 
+    const consentInput = form.querySelector('.signup-consent input[type="checkbox"]');
+    if (consentInput && !consentInput.checked) {
+      consentInput.reportValidity();
+      return;
+    }
+
     const button = form.querySelector('.signup-button');
     if (button) button.disabled = true;
 
