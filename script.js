@@ -60,4 +60,3 @@ function wireSignupForm(formId) {
 }
 
 wireSignupForm('hero-form');
-wireSignupForm('footer-form');
