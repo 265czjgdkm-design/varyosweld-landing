@@ -445,3 +445,18 @@ main {
   font-size: 13px;
   font-style: italic;
 }
+
+.legal-lang {
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+
+.legal-lang a {
+  color: var(--accent);
+}
+
+.legal-section + .legal-section {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--secondary);
+}
