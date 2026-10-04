@@ -72,7 +72,7 @@
       <li>
         <strong>PDF reports:</strong> reports you generate are created and shared directly from your
         device using the native share/print sheet. Nothing is uploaded to a server as part of
-        generating a report.
+        generating a report. Reports are kept on the device in the in-app Saved Reports list.
       </li>
       <li>
         <strong>Subscription and purchase data:</strong> in-app purchases (Premium PDF export) are
@@ -116,7 +116,7 @@
 
     <h2>4. What the app does not do</h2>
     <ul>
-      <li>Account creation is optional — the app is usable as a guest, with your presets and saved calculations staying on your device. Only the AI assistant (if you use it) and purchases involve third-party services as described above.</li>
+      <li>Account creation is optional — the app is usable as a guest, with your presets and saved calculations staying on your device. Third-party services are involved only as described above: the AI assistant (if you use it), purchases, and RevenueCat, which the app contacts at launch using an anonymous ID to check subscription status. The web calculator at /app/ also loads its rendering engine and fonts from Google's gstatic CDN.</li>
       <li>No analytics, tracking, or advertising SDKs, and no crash-reporting SDKs.</li>
       <li>No access to your location, contacts, camera, or microphone.</li>
     </ul>
@@ -149,23 +149,25 @@
     <h2>7. Data retention</h2>
     <p>
       We keep personal data for as long as needed for the purposes above or as required by applicable
-      law. Data stored on your device stays there until you delete it (including via account
-      deletion) or uninstall the app. Cloud-synced presets and your registered email are kept until you
-      delete your account or ask us to delete them. AI assistant rate-limit counters expire
-      automatically within a day.
+      law. Your registered email is kept until you ask us to delete it. Data stored on your device
+      stays there until you remove it or uninstall the app; account deletion clears only the account
+      and saved calculations (see section 8). AI assistant rate-limit counters expire automatically
+      within a day.
     </p>
 
     <h2>8. Account deletion</h2>
     <p>
-      You can delete your account at any time from the Account screen in the app. We delete your
-      local saved calculations immediately and attempt to delete your cloud-synced calculations; if
-      cloud deletion does not fully complete, the app tells you and you can retry or contact us. Your
-      registered email is removed from our systems as well; because this step relies on a Google Form
-      response and has no automated delete-by-value mechanism, it is handled manually and completed
-      within 30 days of your request. Your name, if you entered one, was never transmitted or stored
-      server-side, so there is nothing server-side to delete for it. You can also request deletion at
-      any time by emailing <a href="mailto:team@varyosweld.com">team@varyosweld.com</a>, including for
-      an address you left on the website launch list. Purchase records held by Apple and RevenueCat are
+      You can delete your account at any time from the Account screen in the app. In-app deletion
+      removes your synced saved calculations from our server and clears the account and saved
+      calculations on this device; if cloud deletion does not fully complete, the app tells you and
+      you can retry or contact us. It does not remove your email from our sign-up records (Google
+      Form/Sheet and email-provider logs). To also remove your email from those records, email
+      <a href="mailto:team@varyosweld.com">team@varyosweld.com</a>; we complete such requests within
+      30 days, including for an address you left on the website launch list. Saved PDF reports (the
+      in-app Saved Reports list, up to 20), custom base and filler materials, and the AI assistant's
+      random identifier and consent flags stay on the device until you remove the items individually
+      or delete the app. Your name, if you entered one, was never transmitted or stored
+      server-side, so there is nothing server-side to delete for it. Purchase records held by Apple and RevenueCat are
       managed under their own policies.
     </p>
 
@@ -242,7 +244,7 @@
       </li>
       <li>
         <strong>Hazır ayarlar ve kaydedilen hesaplamalar:</strong> Kaydettiğiniz birleşim hazır ayarları ve
-        teknik değerler (ölçüler, kaynak yöntemi ayarları, arkı hızları, malzeme seçimleri) varsayılan
+        teknik değerler (ölçüler, kaynak yöntemi ayarları, dolgu hızları, malzeme seçimleri) varsayılan
         olarak cihazınızda yerel olarak saklanır. E-posta ile kayıt olursanız, kayıtlı hazır ayarlarınız
         e-posta adresinize bağlı olarak bir bulut altyapısına (Google Apps Script / Google Sheet) da
         eşitlenir; böylece aynı hesap başka bir cihazdan bunlara erişebilir. Bu teknik değerler tek
@@ -256,7 +258,7 @@
       <li>
         <strong>PDF raporları:</strong> Oluşturduğunuz raporlar doğrudan cihazınızda oluşturulur ve
         yerel paylaş/yazdır menüsü ile paylaşılır. Rapor oluşturma sırasında hiçbir şey bir
-        sunucuya yüklenmez.
+        sunucuya yüklenmez. Raporlar cihazda uygulamadaki Kayıtlı Raporlar listesinde tutulur.
       </li>
       <li>
         <strong>Abonelik ve satın alma verisi:</strong> Uygulama içi satın almalar (Premium PDF dışa
@@ -299,7 +301,7 @@
 
     <h2>4. Uygulamanın Yapmadığı Şeyler</h2>
     <ul>
-      <li>Hesap oluşturmak isteğe bağlıdır — uygulama misafir olarak kullanılabilir ve hazır ayarlarınız ile kayıtlı hesaplamalarınız cihazınızda kalır. Yalnızca yapay zeka asistanı (kullanırsanız) ve satın almalar yukarıda açıklanan üçüncü taraf hizmetleri içerir.</li>
+      <li>Hesap oluşturmak isteğe bağlıdır — uygulama misafir olarak kullanılabilir ve hazır ayarlarınız ile kayıtlı hesaplamalarınız cihazınızda kalır. Üçüncü taraf hizmetler yalnızca yukarıda açıklandığı gibi devreye girer: yapay zeka asistanı (kullanırsanız), satın almalar ve uygulamanın başlangıçta abonelik durumunu kontrol etmek için anonim bir kimlikle iletişime geçtiği RevenueCat. /app/ adresindeki web hesaplayıcı da render motorunu ve yazı tiplerini Google'ın gstatic CDN'inden yükler.</li>
       <li>Analitik, takip veya reklam SDK'ları ile çökme raporlama SDK'ları yoktur.</li>
       <li>Konum, kişiler, kamera veya mikrofon erişimi yoktur.</li>
     </ul>
@@ -332,24 +334,27 @@
     <h2>7. Saklama Süresi</h2>
     <p>
       Kişisel verileriniz, işlenme amacının gerektirdiği süre boyunca veya ilgili mevzuatta
-      öngörülen süreler boyunca saklanır. Cihazınızda tutulan veriler, siz silene (hesap silme
-      dahil) veya uygulamayı kaldırana kadar orada kalır. Bulutla eşitlenen hazır ayarlarınız ve kayıtlı
-      e-posta adresiniz, hesabınızı silene veya silinmesini isteyene kadar saklanır. Yapay zeka
+      öngörülen süreler boyunca saklanır. Kayıtlı e-posta adresiniz, silmemizi isteyene kadar
+      saklanır. Cihazınızda tutulan veriler, siz kaldırana veya uygulamayı silene kadar orada kalır;
+      hesap silme yalnızca hesabı ve kayıtlı hesaplamaları temizler (bkz. bölüm 8). Yapay zeka
       asistanının istek sayaçları bir gün içinde otomatik olarak sona erer.
     </p>
 
     <h2>8. Hesap Silme</h2>
     <p>
-      Hesabınızı istediğiniz zaman uygulamadaki Hesap ekranından silebilirsiniz. Cihazınızdaki
-      kayıtlı hesaplamalarınız hemen silinir ve bulutla eşitlenen hesaplamalarınızın silinmesi
-      denenir; bulut silme işlemi tamamen tamamlanmazsa uygulama sizi bilgilendirir ve yeniden
-      deneyebilir veya bizimle iletişime geçebilirsiniz. Kayıtlı e-posta adresiniz de sistemlerimizden
-      kaldırılır; bu adım bir Google Form yanıtına dayandığından ve değere göre otomatik silme
-      mekanizması bulunmadığından manuel olarak yürütülür ve talebinizden itibaren 30 gün içinde
-      tamamlanır. Adınız girildiyse hiçbir zaman sunucuya iletilmediği veya sunucuda saklanmadığı
-      için silinecek sunucu tarafı bir veri yoktur. Ayrıca web sitesindeki lansman listesine bıraktığınız
-      adres dahil olmak üzere silme talebinizi her zaman
-      <a href="mailto:team@varyosweld.com">team@varyosweld.com</a> adresine e-posta ile iletebilirsiniz.
+      Hesabınızı istediğiniz zaman uygulamadaki Hesap ekranından silebilirsiniz. Uygulama içi silme,
+      bulutla eşitlenen kayıtlı hesaplamalarınızı sunucumuzdan kaldırır ve bu cihazdaki hesabı ve
+      kayıtlı hesaplamaları temizler; bulut silme işlemi tamamen tamamlanmazsa uygulama sizi
+      bilgilendirir ve yeniden deneyebilir veya bizimle iletişime geçebilirsiniz. E-posta adresinizi
+      kayıt kayıtlarımızdan (Google Form/Sheet ve e-posta sağlayıcı günlükleri) kaldırmaz. E-posta
+      adresinizin bu kayıtlardan da kaldırılması için
+      <a href="mailto:team@varyosweld.com">team@varyosweld.com</a> adresine e-posta gönderin; web
+      sitesindeki lansman listesine bıraktığınız adres dahil bu tür talepleri 30 gün içinde
+      tamamlarız. Kayıtlı PDF raporlar (uygulamadaki Kayıtlı Raporlar listesi, en fazla 20), özel
+      ana ve dolgu malzemeleri ile yapay zeka asistanının rastgele tanımlayıcısı ve onay bilgileri,
+      öğeleri tek tek kaldırana veya uygulamayı silene kadar cihazda kalır. Adınız girildiyse hiçbir
+      zaman sunucuya iletilmediği veya sunucuda saklanmadığı için silinecek sunucu tarafı bir veri
+      yoktur.
       Apple ve RevenueCat'te tutulan satın alma kayıtları kendi politikalarına göre yönetilir.
     </p>
 
