@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karbon Eşdeğeri (CE, CET, Pcm) Hesaplama | Varyos Weld</title>
+  <meta name="description" content="Ücretsiz karbon eşdeğeri hesaplayıcı: IIW CE, EN 1011-2 CET ve Pcm formülleri, kaynaklanabilirlik yorumu ve örnek hesap." />
+  <link rel="canonical" href="https://varyosweld.com/araclar/karbon-esdegeri-hesaplama.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Varyos Weld" />
+  <meta property="og:title" content="Karbon Eşdeğeri (CE, CET, Pcm) Hesaplama / Carbon Equivalent" />
+  <meta property="og:description" content="Ücretsiz karbon eşdeğeri hesaplayıcı: IIW CE, EN 1011-2 CET ve Pcm formülleri, kaynaklanabilirlik yorumu ve örnek hesap." />
+  <meta property="og:url" content="https://varyosweld.com/araclar/karbon-esdegeri-hesaplama.html" />
+  <link rel="icon" type="image/svg+xml" href="/assets/varyos-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/araclar/tools.css" />
+  <!-- Sources: https://en.wikipedia.org/wiki/Carbon_equivalent (CE, Pcm); https://service.dillinger.de/d/en/e-service/tools/welding/help/embed_index.shtml (CET and validity) -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Carbon Equivalent (CE, CET, Pcm) Calculator","applicationCategory":"EngineeringApplication","operatingSystem":"Any (web browser)","inLanguage":["tr","en"],"url":"https://varyosweld.com/araclar/karbon-esdegeri-hesaplama.html","description":"Free carbon equivalent calculator: IIW CE, EN 1011-2 CET and Pcm with weldability guidance and a worked example.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Varyos Weld","url":"https://varyosweld.com/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Karbon eşdeğeri nedir?","acceptedAnswer":{"@type":"Answer","text":"Alaşım elementlerinin sertleşebilirliğe etkisini karbon cinsinden ifade eden tek bir sayıdır; yüksek değer, ısıdan etkilenen bölgede sert yapı ve soğuk çatlama riskini artırır."}},{"@type":"Question","name":"What is carbon equivalent?","acceptedAnswer":{"@type":"Answer","text":"A single number expressing the hardening effect of alloying elements in terms of carbon; higher values mean harder HAZ structures and a higher cold-cracking risk."}},{"@type":"Question","name":"CE mi CET mi kullanmalıyım?","acceptedAnswer":{"@type":"Answer","text":"CE (IIW) genel kullanımlıdır; EN 1011-2 ön ısıtma yöntemi B için CET gerekir. Düşük karbonlu, mikro alaşımlı çeliklerde Pcm daha uygundur."}},{"@type":"Question","name":"Should I use CE or CET?","acceptedAnswer":{"@type":"Answer","text":"CE (IIW) is general purpose; EN 1011-2 preheat method B requires CET. Pcm suits low-carbon, micro-alloyed steels."}},{"@type":"Question","name":"CE hangi değerde ön ısıtma gerekir?","acceptedAnswer":{"@type":"Answer","text":"Genel kural olarak CE > 0,40-0,45 olduğunda kalın kesitlerde ön ısıtma düşünülür; kesin değer kalınlık, hidrojen ve ısı girdisine bağlıdır (ön ısıtma hesaplayıcımıza bakın)."}},{"@type":"Question","name":"At what CE is preheat needed?","acceptedAnswer":{"@type":"Answer","text":"As a rule of thumb preheat is considered above CE 0.40-0.45 on thick sections; the exact value depends on thickness, hydrogen and heat input (see our preheat calculator)."}}]}</script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" style="text-decoration:none;color:inherit">
+      <div class="brand-badge"><img src="/assets/varyos-mark.svg" alt="" width="20" height="20" /></div>
+      <div class="brand-word"><span class="brand-varyos">VARYOS</span><span class="brand-weld">WELD</span></div>
+    </a>
+  </header>
+  <main class="tool">
+    <div class="langbar"><button type="button" data-set-lang="tr" aria-pressed="true">Türkçe</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></div>
+    <p><a href="/araclar/">&larr; <span lang="tr">Tüm araçlar</span><span lang="en">All tools</span></a></p>
+    <h1><span lang="tr">Karbon Eşdeğeri (CE, CET, Pcm) Hesaplama</span><span lang="en">Carbon Equivalent (CE, CET, Pcm) Calculator</span></h1>
+    <p><span lang="tr">Çeliğin kimyasal bileşiminden kaynak kabiliyetini ve soğuk çatlama eğilimini tahmin etmek için kullanılan karbon eşdeğerini hesaplayın. Değerleri ağırlıkça % olarak girin.</span><span lang="en">Estimate weldability and cold-cracking tendency from steel chemistry. Enter values in weight %.</span></p>
+    <div class="card">
+      <div class="grid">
+      <label><span lang="tr">C</span><span lang="en">C</span><input id="C" type="number" inputmode="decimal" step="any" value="0.20"></label>
+      <label><span lang="tr">Si</span><span lang="en">Si</span><input id="Si" type="number" inputmode="decimal" step="any" value="0.35"></label>
+      <label><span lang="tr">Mn</span><span lang="en">Mn</span><input id="Mn" type="number" inputmode="decimal" step="any" value="1.40"></label>
+      <label><span lang="tr">Cr</span><span lang="en">Cr</span><input id="Cr" type="number" inputmode="decimal" step="any" value="0.10"></label>
+      <label><span lang="tr">Mo</span><span lang="en">Mo</span><input id="Mo" type="number" inputmode="decimal" step="any" value="0.05"></label>
+      <label><span lang="tr">V</span><span lang="en">V</span><input id="V" type="number" inputmode="decimal" step="any" value="0.02"></label>
+      <label><span lang="tr">Ni</span><span lang="en">Ni</span><input id="Ni" type="number" inputmode="decimal" step="any" value="0.10"></label>
+      <label><span lang="tr">Cu</span><span lang="en">Cu</span><input id="Cu" type="number" inputmode="decimal" step="any" value="0.15"></label>
+      <label><span lang="tr">B</span><span lang="en">B</span><input id="B" type="number" inputmode="decimal" step="any" value="0"></label>
+      </div>
+    </div>
+    <div class="card" aria-live="polite">
+      <div class="res-row"><span>CE (IIW)</span><b id="o1">-</b></div><div class="res-row"><span>CET (EN 1011-2)</span><b id="o2">-</b></div><div class="res-row"><span>Pcm</span><b id="o3">-</b></div><p id="o4" class="warn"></p>
+    </div>
+    <p class="disclaimer"><span lang="tr">Mühendislik ön hesabıdır; nihai değer WPS/standarda göre doğrulanmalıdır.</span><span lang="en">Engineering pre-calculation only; the final value must be verified against the WPS/standard.</span></p>
+    <h2><span lang="tr">Formül</span><span lang="en">Formula</span></h2>
+    <pre class="formula">CE  = C + Mn/6 + (Cr+Mo+V)/5 + (Ni+Cu)/15
+CET = C + (Mn+Mo)/10 + (Cr+Cu)/20 + Ni/40
+Pcm = C + Si/30 + (Mn+Cu+Cr)/20 + Ni/60 + Mo/15 + V/10 + 5B</pre>
+    <h2><span lang="tr">Standart referansı</span><span lang="en">Standard reference</span></h2>
+    <p><span lang="tr">CE: IIW (1967); CET: EN 1011-2 Ek C (Yöntem B) / ISO/TR 17671-2; Pcm: Ito-Bessyo (JWES).</span><span lang="en">CE: IIW (1967); CET: EN 1011-2 Annex C (Method B) / ISO/TR 17671-2; Pcm: Ito-Bessyo (JWES).</span></p>
+    <h2><span lang="tr">Geçerlilik aralığı</span><span lang="en">Validity range</span></h2>
+    <p><span lang="tr">CET yalnızca C 0,05-0,32; Mn 0,5-1,9; Si ≤ 0,8; Cr ≤ 1,5; Ni ≤ 2,5; Mo ≤ 0,75; Cu ≤ 0,7; V ≤ 0,18 % aralığındaki çelikler için geçerlidir. Pcm genelde C ≤ 0,12 % olan düşük karbonlu çelikler için kullanılır.</span><span lang="en">CET is valid only for steels with C 0.05-0.32; Mn 0.5-1.9; Si ≤ 0.8; Cr ≤ 1.5; Ni ≤ 2.5; Mo ≤ 0.75; Cu ≤ 0.7; V ≤ 0.18 %. Pcm is typically used for low-carbon steels (C ≤ 0.12 %).</span></p>
+    <h2><span lang="tr">Örnek hesap</span><span lang="en">Worked example</span></h2>
+    <p><span lang="tr">C 0,20; Si 0,35; Mn 1,40; Cr 0,10; Mo 0,05; V 0,02; Ni 0,10; Cu 0,15 için: CE = 0.484, CET = 0.360, Pcm = 0.301.</span><span lang="en">For C 0.20; Si 0.35; Mn 1.40; Cr 0.10; Mo 0.05; V 0.02; Ni 0.10; Cu 0.15: CE = 0.484, CET = 0.360, Pcm = 0.301.</span></p>
+    <h2><span lang="tr">Sık sorulan sorular</span><span lang="en">FAQ</span></h2>
+    <details><summary><span lang="tr">Karbon eşdeğeri nedir?</span><span lang="en">What is carbon equivalent?</span></summary><p><span lang="tr">Alaşım elementlerinin sertleşebilirliğe etkisini karbon cinsinden ifade eden tek bir sayıdır; yüksek değer, ısıdan etkilenen bölgede sert yapı ve soğuk çatlama riskini artırır.</span><span lang="en">A single number expressing the hardening effect of alloying elements in terms of carbon; higher values mean harder HAZ structures and a higher cold-cracking risk.</span></p></details>
+    <details><summary><span lang="tr">CE mi CET mi kullanmalıyım?</span><span lang="en">Should I use CE or CET?</span></summary><p><span lang="tr">CE (IIW) genel kullanımlıdır; EN 1011-2 ön ısıtma yöntemi B için CET gerekir. Düşük karbonlu, mikro alaşımlı çeliklerde Pcm daha uygundur.</span><span lang="en">CE (IIW) is general purpose; EN 1011-2 preheat method B requires CET. Pcm suits low-carbon, micro-alloyed steels.</span></p></details>
+    <details><summary><span lang="tr">CE hangi değerde ön ısıtma gerekir?</span><span lang="en">At what CE is preheat needed?</span></summary><p><span lang="tr">Genel kural olarak CE > 0,40-0,45 olduğunda kalın kesitlerde ön ısıtma düşünülür; kesin değer kalınlık, hidrojen ve ısı girdisine bağlıdır (ön ısıtma hesaplayıcımıza bakın).</span><span lang="en">As a rule of thumb preheat is considered above CE 0.40-0.45 on thick sections; the exact value depends on thickness, hydrogen and heat input (see our preheat calculator).</span></p></details>
+    <div class="cta-box card">
+  <h2><span lang="tr">Varyos Weld ile devam edin</span><span lang="en">Continue with Varyos Weld</span></h2>
+  <p><span lang="tr">Tüm bu hesapları kaydedin, malzeme kütüphanenizi oluşturun; doldurma metali tüketimi ve ön ısıtma tek uygulamada.</span><span lang="en">Save these calculations, build a material library; filler consumption and preheat in one app.</span></p>
+  <a class="cta-button" href="/app/"><span lang="tr">Web hesaplayıcıyı ücretsiz deneyin</span><span lang="en">Try the web calculator free</span></a><br>
+  <a href="https://varyosweld.com/"><span lang="tr">iOS uygulaması yakında</span><span lang="en">iOS app coming soon</span></a>
+</div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-links">
+      <a href="/araclar/">Araçlar / Tools</a><span class="sep">·</span>
+      <a href="/terms.html">Terms of Use</a><span class="sep">·</span>
+      <a href="/privacy.html">Privacy Policy (KVKK)</a>
+    </p>
+    <p class="footer-brand">Varyos Weld — varyosweld.com</p>
+  </footer>
+  <script src="/araclar/calc.js"></script>
+  <script src="/araclar/tools.js"></script>
+  <script>
+var ids=['C','Si','Mn','Cr','Mo','V','Ni','Cu','B'];
+window.vwRender=function(){
+ var m={},bad=false;ids.forEach(function(i){var v=vwNum(i);if(v===null||v<0){v=0;} m[i]=v;});
+ var ce=Calc.ceIIW(m),cet=Calc.cet(m),pcm=Calc.pcm(m);
+ o1.textContent=ce.toFixed(3);o2.textContent=cet.toFixed(3);o3.textContent=pcm.toFixed(3);
+ var w=[];
+ if(m.C<0.05||m.C>0.32)w.push(L('CET geçerlilik aralığı dışında: C 0,05-0,32 %.','Outside CET validity: C 0.05-0.32 %.'));
+ if(m.Mn<0.5||m.Mn>1.9)w.push(L('CET için Mn 0,50-1,90 % aralığı dışında.','Mn outside the 0.50-1.90 % CET range.'));
+ if(m.Mo>0.75||m.Cr>1.5||m.Ni>2.5||m.Cu>0.7||m.Si>0.8)w.push(L('Bir veya daha fazla alaşım elementi CET kapsamının üstünde.','One or more alloying elements exceed the CET scope.'));
+ w.push(ce<=0.35?L('CE yorumu: mükemmel kaynaklanabilirlik (CE ≤ 0,35).','CE guidance: excellent weldability (CE ≤ 0.35).'):ce<=0.45?L('CE yorumu: iyi kaynaklanabilirlik (0,35-0,45); kalın kesitte ön ısıtma gerekebilir.','CE guidance: good weldability (0.35-0.45); preheat may be needed on thick sections.'):ce<=0.6?L('CE yorumu: orta/zayıf kaynaklanabilirlik (0,45-0,60); ön ısıtma çoğunlukla gerekir.','CE guidance: fair/poor weldability (0.45-0.60); preheat usually needed.'):L('CE yorumu: zayıf kaynaklanabilirlik (>0,60); ön ısıtma ve düşük hidrojen şart.','CE guidance: poor weldability (>0.60); preheat and low hydrogen required.'));
+ o4.innerHTML=w.join('<br>');
+};</script>
+</body>
+</html>

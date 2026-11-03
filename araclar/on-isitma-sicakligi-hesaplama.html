@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ön Isıtma Sıcaklığı Hesaplama (EN 1011-2 Yöntem B) | Varyos Weld</title>
+  <meta name="description" content="Ücretsiz ön ısıtma sıcaklığı hesaplayıcı: EN 1011-2 Ek C Yöntem B (CET), kalınlık, hidrojen ve ısı girdisi, geçerlilik uyarıları ve örnek." />
+  <link rel="canonical" href="https://varyosweld.com/araclar/on-isitma-sicakligi-hesaplama.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Varyos Weld" />
+  <meta property="og:title" content="Ön Isıtma Sıcaklığı Hesaplama (EN 1011-2 Yöntem B) / Preheat Temperature Calculator" />
+  <meta property="og:description" content="Ücretsiz ön ısıtma sıcaklığı hesaplayıcı: EN 1011-2 Ek C Yöntem B (CET), kalınlık, hidrojen ve ısı girdisi, geçerlilik uyarıları ve örnek." />
+  <meta property="og:url" content="https://varyosweld.com/araclar/on-isitma-sicakligi-hesaplama.html" />
+  <link rel="icon" type="image/svg+xml" href="/assets/varyos-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/araclar/tools.css" />
+  <!-- Sources: https://service.dillinger.de/d/en/e-service/tools/welding/help/embed_index.shtml (Tp = ... - 328 and validity ranges); ISO/TR 17844 lists same method -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Preheat Temperature Calculator (EN 1011-2 Method B)","applicationCategory":"EngineeringApplication","operatingSystem":"Any (web browser)","inLanguage":["tr","en"],"url":"https://varyosweld.com/araclar/on-isitma-sicakligi-hesaplama.html","description":"Free preheat temperature calculator: EN 1011-2 Annex C Method B (CET) from thickness, hydrogen and heat input, with validity warnings and a worked example.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Varyos Weld","url":"https://varyosweld.com/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ön ısıtma neden gerekir?","acceptedAnswer":{"@type":"Answer","text":"Ön ısıtma soğuma hızını düşürür ve hidrojenin uzaklaşmasına izin vererek ısıdan etkilenen bölgede soğuk çatlama riskini azaltır."}},{"@type":"Question","name":"Why is preheat needed?","acceptedAnswer":{"@type":"Answer","text":"Preheating slows cooling and lets hydrogen escape, reducing cold-cracking risk in the HAZ."}},{"@type":"Question","name":"Hidrojen değeri (HD) nasıl seçilir?","acceptedAnswer":{"@type":"Answer","text":"HD, sarf malzemenin difüze hidrojen sınıfıdır (ör. H5 = 5 ml/100g, bazik elektrot kurutulmamışsa daha yüksek). Üretici verisine bakın."}},{"@type":"Question","name":"How do I choose HD?","acceptedAnswer":{"@type":"Answer","text":"HD is the consumable's diffusible hydrogen class (e.g. H5 = 5 ml/100g; higher if basic electrodes are not dried). Check the manufacturer data."}},{"@type":"Question","name":"Sonuç bir WPS yerine geçer mi?","acceptedAnswer":{"@type":"Answer","text":"Hayır. Bu bir ön hesaptır; nihai ön ısıtma değeri WPS, standart ve malzeme üreticisi önerisiyle doğrulanmalıdır."}},{"@type":"Question","name":"Does this replace a WPS?","acceptedAnswer":{"@type":"Answer","text":"No. It is a pre-calculation; the final preheat must be verified against the WPS, the standard and the steel maker's recommendation."}}]}</script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" style="text-decoration:none;color:inherit">
+      <div class="brand-badge"><img src="/assets/varyos-mark.svg" alt="" width="20" height="20" /></div>
+      <div class="brand-word"><span class="brand-varyos">VARYOS</span><span class="brand-weld">WELD</span></div>
+    </a>
+  </header>
+  <main class="tool">
+    <div class="langbar"><button type="button" data-set-lang="tr" aria-pressed="true">Türkçe</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></div>
+    <p><a href="/araclar/">&larr; <span lang="tr">Tüm araçlar</span><span lang="en">All tools</span></a></p>
+    <h1><span lang="tr">Ön Isıtma Sıcaklığı Hesaplama (EN 1011-2 Yöntem B)</span><span lang="en">Preheat Temperature Calculator (EN 1011-2 Method B)</span></h1>
+    <p><span lang="tr">Bileşim (CET), parça kalınlığı, difüze hidrojen ve ısı girdisinden minimum ön ısıtma sıcaklığını hesaplayın (EN 1011-2 Ek C, Yöntem B).</span><span lang="en">Compute the minimum preheat temperature from composition (CET), thickness, diffusible hydrogen and heat input (EN 1011-2 Annex C, Method B).</span></p>
+    <div class="card">
+      <div class="grid">
+      <label><span lang="tr">C %</span><span lang="en">C %</span><input id="C" type="number" inputmode="decimal" step="any" value="0.18"></label>
+      <label><span lang="tr">Mn %</span><span lang="en">Mn %</span><input id="Mn" type="number" inputmode="decimal" step="any" value="1.40"></label>
+      <label><span lang="tr">Mo %</span><span lang="en">Mo %</span><input id="Mo" type="number" inputmode="decimal" step="any" value="0.05"></label>
+      <label><span lang="tr">Cr %</span><span lang="en">Cr %</span><input id="Cr" type="number" inputmode="decimal" step="any" value="0.10"></label>
+      <label><span lang="tr">Cu %</span><span lang="en">Cu %</span><input id="Cu" type="number" inputmode="decimal" step="any" value="0.15"></label>
+      <label><span lang="tr">Ni %</span><span lang="en">Ni %</span><input id="Ni" type="number" inputmode="decimal" step="any" value="0.10"></label>
+      <label><span lang="tr">Kalınlık d (mm)</span><span lang="en">Thickness d (mm)</span><input id="d" type="number" inputmode="decimal" step="any" value="30"></label>
+      <label><span lang="tr">Hidrojen HD (ml/100g)</span><span lang="en">Hydrogen HD (ml/100g)</span><input id="HD" type="number" inputmode="decimal" step="any" value="5"></label>
+      <label><span lang="tr">Isı girdisi Q (kJ/mm)</span><span lang="en">Heat input Q (kJ/mm)</span><input id="Q" type="number" inputmode="decimal" step="any" value="1.5"></label>
+      </div>
+    </div>
+    <div class="card" aria-live="polite">
+      <div class="res-row"><span>CET</span><b id="o2">-</b></div><div class="result"><span id="o1">-</span> °C<small id="o3"></small></div><p id="o4" class="warn"></p>
+    </div>
+    <p class="disclaimer"><span lang="tr">Mühendislik ön hesabıdır; nihai değer WPS/standarda göre doğrulanmalıdır.</span><span lang="en">Engineering pre-calculation only; the final value must be verified against the WPS/standard.</span></p>
+    <h2><span lang="tr">Formül</span><span lang="en">Formula</span></h2>
+    <pre class="formula">CET = C + (Mn+Mo)/10 + (Cr+Cu)/20 + Ni/40
+Tp  = 697·CET + 160·tanh(d/35) + 62·HD^0.35
+      + (53·CET − 32)·Q − 328   [°C]</pre>
+    <h2><span lang="tr">Standart referansı</span><span lang="en">Standard reference</span></h2>
+    <p><span lang="tr">EN 1011-2 Ek C, Yöntem B (CET yöntemi) / ISO/TR 17671-2. Not: yayımlanan formülde sabit terim −328'dir.</span><span lang="en">EN 1011-2 Annex C, Method B (CET method) / ISO/TR 17671-2. Note: the published constant term is −328.</span></p>
+    <h2><span lang="tr">Geçerlilik aralığı</span><span lang="en">Validity range</span></h2>
+    <p><span lang="tr">Geçerlilik: CET 0,2-0,5; d 10-90 mm; HD 1-20 ml/100g; Q 0,5-4,0 kJ/mm. Yöntem B ağırlıklı olarak ince taneli, yüksek mukavemetli düşük alaşımlı çelikler içindir; bu aralık dışında sonuç uyarı ile gösterilir.</span><span lang="en">Validity: CET 0.2-0.5; d 10-90 mm; HD 1-20 ml/100g; Q 0.5-4.0 kJ/mm. Method B is mainly for fine-grained, high-strength low-alloy steels; results outside these ranges are shown with a warning.</span></p>
+    <h2><span lang="tr">Örnek hesap</span><span lang="en">Worked example</span></h2>
+    <p><span lang="tr">C 0,18; Mn 1,40; Mo 0,05; Cr 0,10; Cu 0,15; Ni 0,10; d = 30 mm; HD = 5 ml/100g; Q = 1,5 kJ/mm: CET = 0.340, Tp = 108.1 °C (≈ 110 °C).</span><span lang="en">C 0.18; Mn 1.40; Mo 0.05; Cr 0.10; Cu 0.15; Ni 0.10; d = 30 mm; HD = 5 ml/100g; Q = 1.5 kJ/mm: CET = 0.340, Tp = 108.1 °C (≈ 110 °C).</span></p>
+    <h2><span lang="tr">Sık sorulan sorular</span><span lang="en">FAQ</span></h2>
+    <details><summary><span lang="tr">Ön ısıtma neden gerekir?</span><span lang="en">Why is preheat needed?</span></summary><p><span lang="tr">Ön ısıtma soğuma hızını düşürür ve hidrojenin uzaklaşmasına izin vererek ısıdan etkilenen bölgede soğuk çatlama riskini azaltır.</span><span lang="en">Preheating slows cooling and lets hydrogen escape, reducing cold-cracking risk in the HAZ.</span></p></details>
+    <details><summary><span lang="tr">Hidrojen değeri (HD) nasıl seçilir?</span><span lang="en">How do I choose HD?</span></summary><p><span lang="tr">HD, sarf malzemenin difüze hidrojen sınıfıdır (ör. H5 = 5 ml/100g, bazik elektrot kurutulmamışsa daha yüksek). Üretici verisine bakın.</span><span lang="en">HD is the consumable's diffusible hydrogen class (e.g. H5 = 5 ml/100g; higher if basic electrodes are not dried). Check the manufacturer data.</span></p></details>
+    <details><summary><span lang="tr">Sonuç bir WPS yerine geçer mi?</span><span lang="en">Does this replace a WPS?</span></summary><p><span lang="tr">Hayır. Bu bir ön hesaptır; nihai ön ısıtma değeri WPS, standart ve malzeme üreticisi önerisiyle doğrulanmalıdır.</span><span lang="en">No. It is a pre-calculation; the final preheat must be verified against the WPS, the standard and the steel maker's recommendation.</span></p></details>
+    <div class="cta-box card">
+  <h2><span lang="tr">Varyos Weld ile devam edin</span><span lang="en">Continue with Varyos Weld</span></h2>
+  <p><span lang="tr">Tüm bu hesapları kaydedin, malzeme kütüphanenizi oluşturun; doldurma metali tüketimi ve ön ısıtma tek uygulamada.</span><span lang="en">Save these calculations, build a material library; filler consumption and preheat in one app.</span></p>
+  <a class="cta-button" href="/app/"><span lang="tr">Web hesaplayıcıyı ücretsiz deneyin</span><span lang="en">Try the web calculator free</span></a><br>
+  <a href="https://varyosweld.com/"><span lang="tr">iOS uygulaması yakında</span><span lang="en">iOS app coming soon</span></a>
+</div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-links">
+      <a href="/araclar/">Araçlar / Tools</a><span class="sep">·</span>
+      <a href="/terms.html">Terms of Use</a><span class="sep">·</span>
+      <a href="/privacy.html">Privacy Policy (KVKK)</a>
+    </p>
+    <p class="footer-brand">Varyos Weld — varyosweld.com</p>
+  </footer>
+  <script src="/araclar/calc.js"></script>
+  <script src="/araclar/tools.js"></script>
+  <script>
+window.vwRender=function(){
+ var m={},ok=true;['C','Mn','Mo','Cr','Cu','Ni'].forEach(function(i){var v=vwNum(i);if(v===null||v<0)v=0;m[i]=v;});
+ var d=vwNum('d'),hd=vwNum('HD'),q=vwNum('Q');
+ if(!d||!hd||!q||d<=0||hd<=0||q<=0){o1.textContent='-';o2.textContent='-';o3.textContent='';o4.textContent=L('d, HD ve Q için pozitif değer girin.','Enter positive values for d, HD and Q.');return;}
+ var cet=Calc.cet(m),tp=Calc.preheat(cet,d,hd,q);
+ o2.textContent=cet.toFixed(3);
+ var shown=Math.round(tp);
+ if(tp<=20){o1.textContent='≤ 20';o3.textContent=L('Bu yönteme göre ön ısıtma gerekmiyor (hesap: '+shown+' °C).','No preheat required by this method (calculated: '+shown+' °C).');}
+ else{o1.textContent=Math.ceil(tp/5)*5;o3.textContent=L('Hesaplanan: '+tp.toFixed(1)+' °C, 5 °C\'ye yukarı yuvarlandı.','Calculated: '+tp.toFixed(1)+' °C, rounded up to 5 °C.');}
+ var w=[];
+ if(cet<0.2||cet>0.5)w.push(L('CET '+cet.toFixed(3)+' geçerlilik aralığı (0,2-0,5) dışında.','CET '+cet.toFixed(3)+' is outside the validity range (0.2-0.5).'));
+ if(d<10||d>90)w.push(L('Kalınlık geçerlilik aralığı (10-90 mm) dışında.','Thickness is outside the validity range (10-90 mm).'));
+ if(hd<1||hd>20)w.push(L('HD geçerlilik aralığı (1-20 ml/100g) dışında.','HD is outside the validity range (1-20 ml/100g).'));
+ if(q<0.5||q>4)w.push(L('Isı girdisi geçerlilik aralığı (0,5-4,0 kJ/mm) dışında.','Heat input is outside the validity range (0.5-4.0 kJ/mm).'));
+ if(w.length)w.push(L('Aralık dışı sonuç güvenilir değildir.','An out-of-range result is not reliable.'));
+ o4.innerHTML=w.join('<br>');
+};</script>
+</body>
+</html>

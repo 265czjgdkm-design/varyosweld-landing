@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>t8/5 Soğuma Süresi Hesaplama (EN 1011-2 Ek D) | Varyos Weld</title>
+  <meta name="description" content="Ücretsiz t8/5 soğuma süresi hesaplayıcı: EN 1011-2 Ek D 2D ve 3D formülleri, F2/F3 şekil faktörleri, geçiş kalınlığı ve örnek." />
+  <link rel="canonical" href="https://varyosweld.com/araclar/t85-soguma-suresi-hesaplama.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Varyos Weld" />
+  <meta property="og:title" content="t8/5 Soğuma Süresi Hesaplama (EN 1011-2 Ek D) / t8/5 Cooling Time Calculator" />
+  <meta property="og:description" content="Ücretsiz t8/5 soğuma süresi hesaplayıcı: EN 1011-2 Ek D 2D ve 3D formülleri, F2/F3 şekil faktörleri, geçiş kalınlığı ve örnek." />
+  <meta property="og:url" content="https://varyosweld.com/araclar/t85-soguma-suresi-hesaplama.html" />
+  <link rel="icon" type="image/svg+xml" href="/assets/varyos-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/araclar/tools.css" />
+  <!-- Sources: https://service.dillinger.de/d/en/e-service/tools/welding/help/embed_index.shtml (3D/2D formulas, F2/F3 table, transition thickness); https://www.migal.co/en/service/welding-calculators/cooling-rate-t8/5-calculator -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"t8/5 Cooling Time Calculator (EN 1011-2 Annex D)","applicationCategory":"EngineeringApplication","operatingSystem":"Any (web browser)","inLanguage":["tr","en"],"url":"https://varyosweld.com/araclar/t85-soguma-suresi-hesaplama.html","description":"Free t8/5 cooling time calculator: EN 1011-2 Annex D 2D and 3D formulas, F2/F3 shape factors, transition thickness and a worked example.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Varyos Weld","url":"https://varyosweld.com/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"t8/5 nedir?","acceptedAnswer":{"@type":"Answer","text":"Kaynak ve ısıdan etkilenen bölgenin 800 °C'den 500 °C'ye soğuma süresidir; mikroyapıyı, sertliği ve tokluğu belirler."}},{"@type":"Question","name":"What is t8/5?","acceptedAnswer":{"@type":"Answer","text":"The time the weld and HAZ take to cool from 800 °C to 500 °C; it controls microstructure, hardness and toughness."}},{"@type":"Question","name":"2D mi 3D mü kullanılır?","acceptedAnswer":{"@type":"Answer","text":"İnce levhada ısı akışı iki boyutlu, kalında üç boyutludur. Levha kalınlığı geçiş kalınlığından küçükse 2D, değilse 3D sonucu alınır."}},{"@type":"Question","name":"Is 2D or 3D used?","acceptedAnswer":{"@type":"Answer","text":"Heat flow is two-dimensional in thin plate, three-dimensional in thick plate. Use 2D if thickness is below the transition thickness, else 3D."}},{"@type":"Question","name":"t8/5 değerini nasıl uzatırım?","acceptedAnswer":{"@type":"Answer","text":"Isı girdisini veya ön ısıtma/ara pasa sıcaklığını artırmak t8/5'i uzatır, sertliği düşürür; ancak çok uzun süre tokluğu azaltabilir."}},{"@type":"Question","name":"How do I lengthen t8/5?","acceptedAnswer":{"@type":"Answer","text":"Increasing heat input or preheat/interpass temperature lengthens t8/5 and lowers hardness, but too long a time can reduce toughness."}}]}</script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" style="text-decoration:none;color:inherit">
+      <div class="brand-badge"><img src="/assets/varyos-mark.svg" alt="" width="20" height="20" /></div>
+      <div class="brand-word"><span class="brand-varyos">VARYOS</span><span class="brand-weld">WELD</span></div>
+    </a>
+  </header>
+  <main class="tool">
+    <div class="langbar"><button type="button" data-set-lang="tr" aria-pressed="true">Türkçe</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></div>
+    <p><a href="/araclar/">&larr; <span lang="tr">Tüm araçlar</span><span lang="en">All tools</span></a></p>
+    <h1><span lang="tr">t8/5 Soğuma Süresi Hesaplama (EN 1011-2 Ek D)</span><span lang="en">t8/5 Cooling Time Calculator (EN 1011-2 Annex D)</span></h1>
+    <p><span lang="tr">800 °C'den 500 °C'ye soğuma süresi t8/5'i ısı girdisi, ön ısıtma/ara pasa sıcaklığı, kalınlık ve birleşim tipinden hesaplayın.</span><span lang="en">Compute the 800→500 °C cooling time t8/5 from heat input, preheat/interpass temperature, thickness and joint type.</span></p>
+    <div class="card">
+      <div class="grid">
+      <label><span lang="tr">Isı girdisi Q (kJ/mm)</span><span lang="en">Heat input Q (kJ/mm)</span><input id="Q" type="number" inputmode="decimal" step="any" value="1.0"></label>
+      <label><span lang="tr">Ön ısıtma T0 (°C)</span><span lang="en">Preheat T0 (°C)</span><input id="T0" type="number" inputmode="decimal" step="any" value="20"></label>
+      <label><span lang="tr">Kalınlık d (mm)</span><span lang="en">Thickness d (mm)</span><input id="d" type="number" inputmode="decimal" step="any" value="20"></label>
+      <label><span lang="tr">Birleşim / paso</span><span lang="en">Joint / pass</span><select id="joint"><option value="1,1">Build-up / run on plate (F2=1, F3=1)</option><option value="0.9,0.9" selected>Butt, filling pass (0,9 / 0,9)</option><option value="0.67,0.67">T fillet (0,67 / 0,67)</option><option value="0.9,0.69">Corner fillet (0,9 / 0,69)</option></select></label>
+      </div>
+    </div>
+    <div class="card" aria-live="polite">
+      <div class="result"><span id="o1">-</span> s<small id="o2"></small></div><div class="res-row"><span>t8/5 (3D)</span><b id="o3">-</b></div><div class="res-row"><span>t8/5 (2D)</span><b id="o5">-</b></div><div class="res-row"><span lang="tr">Geçiş kalınlığı</span><span lang="en">Transition thickness</span><b id="o6">-</b></div><p id="o4" class="warn"></p>
+    </div>
+    <p class="disclaimer"><span lang="tr">Mühendislik ön hesabıdır; nihai değer WPS/standarda göre doğrulanmalıdır.</span><span lang="en">Engineering pre-calculation only; the final value must be verified against the WPS/standard.</span></p>
+    <h2><span lang="tr">Formül</span><span lang="en">Formula</span></h2>
+    <pre class="formula">3D: t8/5 = (6700 − 5·T0) · Q · [1/(500−T0) − 1/(800−T0)] · F3
+2D: t8/5 = (4300 − 4.3·T0) · 10^5 · Q²/d² · [1/(500−T0)² − 1/(800−T0)²] · F2
+Q [kJ/mm], T0 [°C], d [mm], t8/5 [s]
+d < d_t → 2D, else 3D</pre>
+    <h2><span lang="tr">Standart referansı</span><span lang="en">Standard reference</span></h2>
+    <p><span lang="tr">EN 1011-2 Ek D (bilgilendirici) / ISO/TR 17671-2. Şekil faktörleri: yığma 1/1, alın dolgu pasosu 0,9/0,9, T-fileto 0,67/0,67, köşe fileto 0,9/0,69 (F2/F3).</span><span lang="en">EN 1011-2 Annex D (informative) / ISO/TR 17671-2. Shape factors: build-up 1/1, butt filling pass 0.9/0.9, T fillet 0.67/0.67, corner fillet 0.9/0.69 (F2/F3).</span></p>
+    <h2><span lang="tr">Geçerlilik aralığı</span><span lang="en">Validity range</span></h2>
+    <p><span lang="tr">Alaşımsız ve düşük alaşımlı çelikler; sürekli ark, eşit kalınlık. 2D/3D geçişi geçiş kalınlığına göre belirlenir. Fileto F2 değerleri ısı girdisi/kalınlık oranıyla değişir; tablo değerleri yaklaşıktır.</span><span lang="en">Unalloyed and low-alloy steels; continuous arc, equal thickness. The 2D/3D choice follows the transition thickness. Fillet F2 varies with the heat input/thickness ratio; the table values are approximate.</span></p>
+    <h2><span lang="tr">Örnek hesap</span><span lang="en">Worked example</span></h2>
+    <p><span lang="tr">Q = 1,0 kJ/mm, T0 = 20 °C, alın dolgu pasosu (F = 0,9): 3D t8/5 = 4.8 s. d = 10 mm için 2D = 10.2 s (2D büyük, ince levha geçerli); d = 20 mm için 2D = 2.6 s (< 3D, 3D geçerli).</span><span lang="en">Q = 1.0 kJ/mm, T0 = 20 °C, butt filling pass (F = 0.9): 3D t8/5 = 4.8 s. For d = 10 mm 2D = 10.2 s (2D larger, thin plate governs); for d = 20 mm 2D = 2.6 s (< 3D, so 3D governs).</span></p>
+    <h2><span lang="tr">Sık sorulan sorular</span><span lang="en">FAQ</span></h2>
+    <details><summary><span lang="tr">t8/5 nedir?</span><span lang="en">What is t8/5?</span></summary><p><span lang="tr">Kaynak ve ısıdan etkilenen bölgenin 800 °C'den 500 °C'ye soğuma süresidir; mikroyapıyı, sertliği ve tokluğu belirler.</span><span lang="en">The time the weld and HAZ take to cool from 800 °C to 500 °C; it controls microstructure, hardness and toughness.</span></p></details>
+    <details><summary><span lang="tr">2D mi 3D mü kullanılır?</span><span lang="en">Is 2D or 3D used?</span></summary><p><span lang="tr">İnce levhada ısı akışı iki boyutlu, kalında üç boyutludur. Levha kalınlığı geçiş kalınlığından küçükse 2D, değilse 3D sonucu alınır.</span><span lang="en">Heat flow is two-dimensional in thin plate, three-dimensional in thick plate. Use 2D if thickness is below the transition thickness, else 3D.</span></p></details>
+    <details><summary><span lang="tr">t8/5 değerini nasıl uzatırım?</span><span lang="en">How do I lengthen t8/5?</span></summary><p><span lang="tr">Isı girdisini veya ön ısıtma/ara pasa sıcaklığını artırmak t8/5'i uzatır, sertliği düşürür; ancak çok uzun süre tokluğu azaltabilir.</span><span lang="en">Increasing heat input or preheat/interpass temperature lengthens t8/5 and lowers hardness, but too long a time can reduce toughness.</span></p></details>
+    <div class="cta-box card">
+  <h2><span lang="tr">Varyos Weld ile devam edin</span><span lang="en">Continue with Varyos Weld</span></h2>
+  <p><span lang="tr">Tüm bu hesapları kaydedin, malzeme kütüphanenizi oluşturun; doldurma metali tüketimi ve ön ısıtma tek uygulamada.</span><span lang="en">Save these calculations, build a material library; filler consumption and preheat in one app.</span></p>
+  <a class="cta-button" href="/app/"><span lang="tr">Web hesaplayıcıyı ücretsiz deneyin</span><span lang="en">Try the web calculator free</span></a><br>
+  <a href="https://varyosweld.com/"><span lang="tr">iOS uygulaması yakında</span><span lang="en">iOS app coming soon</span></a>
+</div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-links">
+      <a href="/araclar/">Araçlar / Tools</a><span class="sep">·</span>
+      <a href="/terms.html">Terms of Use</a><span class="sep">·</span>
+      <a href="/privacy.html">Privacy Policy (KVKK)</a>
+    </p>
+    <p class="footer-brand">Varyos Weld — varyosweld.com</p>
+  </footer>
+  <script src="/araclar/calc.js"></script>
+  <script src="/araclar/tools.js"></script>
+  <script>
+window.vwRender=function(){
+ var q=vwNum('Q'),t0=vwNum('T0'),d=vwNum('d');
+ if(!q||!d||t0===null||q<=0||d<=0||t0>=500){o1.textContent='-';o2.textContent='';o4.textContent=L('Geçerli değerler girin (T0 < 500 °C).','Enter valid values (T0 < 500 °C).');return;}
+ var jf=joint.value.split(',').map(parseFloat),f2=jf[0],f3=jf[1];
+ var t3=Calc.t85_3D(q,t0,f3),t2=Calc.t85_2D(q,t0,d,f2);
+ var dt=Math.sqrt((4300-4.3*t0)*1e5/((6700-5*t0)*q)*((1/Math.pow(500-t0,2)-1/Math.pow(800-t0,2))/(1/(500-t0)-1/(800-t0)))*(f2/f3));
+ o3.textContent=t3.toFixed(1)+' s';o5.textContent=t2.toFixed(1)+' s';o6.textContent=dt.toFixed(1)+' mm';
+ var thin=d<dt;o1.textContent=(thin?t2:t3).toFixed(1);
+ o2.textContent=thin?L('İnce levha (2D) geçerli: d < geçiş kalınlığı','Thin plate (2D) governs: d < transition thickness'):L('Kalın levha (3D) geçerli: d ≥ geçiş kalınlığı','Thick plate (3D) governs: d ≥ transition thickness');
+ var w=[];
+ if(q<0.2||q>5)w.push(L('Isı girdisi tipik aralığın (0,2-5 kJ/mm) dışında.','Heat input is outside the typical range (0.2-5 kJ/mm).'));
+ if(t0<20||t0>300)w.push(L('T0 olağan aralığın (20-300 °C) dışında.','T0 is outside the usual range (20-300 °C).'));
+ w.push(L('Yalnızca alaşımsız/düşük alaşımlı çelikler için; eşit kalınlıklı levhalar varsayılır. Fileto için F2 ısı girdisi/kalınlık oranına bağlıdır (burada sabit alınmıştır).','Unalloyed/low-alloy steels only; equal plate thickness assumed. For fillets F2 depends on the heat input/thickness ratio (fixed here).'));
+ o4.innerHTML=w.join('<br>');
+};</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaynak Isı Girdisi Hesaplama (kJ/mm) | Varyos Weld</title>
+  <meta name="description" content="Ücretsiz kaynak ısı girdisi hesaplayıcı: EN 1011-1 termal verim katsayılı Q = k·U·I/(v·1000), mm/dk veya mm/s hız, örnek hesap." />
+  <link rel="canonical" href="https://varyosweld.com/araclar/isi-girdisi-hesaplama.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Varyos Weld" />
+  <meta property="og:title" content="Kaynak Isı Girdisi Hesaplama (kJ/mm) / Welding Heat Input Calculator" />
+  <meta property="og:description" content="Ücretsiz kaynak ısı girdisi hesaplayıcı: EN 1011-1 termal verim katsayılı Q = k·U·I/(v·1000), mm/dk veya mm/s hız, örnek hesap." />
+  <meta property="og:url" content="https://varyosweld.com/araclar/isi-girdisi-hesaplama.html" />
+  <link rel="icon" type="image/svg+xml" href="/assets/varyos-mark.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/araclar/tools.css" />
+  <!-- Sources: https://www.migal.co/en/service/welding-calculators/heat-input-calculator (EN 1011-1:2009 Table 1, k values; checked 2026-11); standard text EN 1011-1 / ISO/TR 17671-1 -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Welding Heat Input Calculator (kJ/mm)","applicationCategory":"EngineeringApplication","operatingSystem":"Any (web browser)","inLanguage":["tr","en"],"url":"https://varyosweld.com/araclar/isi-girdisi-hesaplama.html","description":"Free welding heat input calculator: EN 1011-1 Q = k·U·I/(v·1000) with process thermal efficiency, travel speed in mm/min or mm/s.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Varyos Weld","url":"https://varyosweld.com/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Isı girdisi neden önemli?","acceptedAnswer":{"@type":"Answer","text":"Isı girdisi soğuma hızını, ısıdan etkilenen bölgenin tokluk ve sertliğini belirler; çok düşükse sertleşme, çok yüksekse tokluk kaybı riski doğar."}},{"@type":"Question","name":"Why does heat input matter?","acceptedAnswer":{"@type":"Answer","text":"It governs cooling rate and HAZ toughness/hardness: too low risks hardening, too high risks toughness loss."}},{"@type":"Question","name":"Hızı mm/dk mı mm/s mi girmeliyim?","acceptedAnswer":{"@type":"Answer","text":"İkisi de olur; araç birim seçimine göre mm/s'ye çevirir (mm/dk ÷ 60). Formül mm/s ister."}},{"@type":"Question","name":"Should I enter speed in mm/min or mm/s?","acceptedAnswer":{"@type":"Answer","text":"Either; the tool converts to mm/s (mm/min ÷ 60). The formula needs mm/s."}},{"@type":"Question","name":"Termal verim k nedir?","acceptedAnswer":{"@type":"Answer","text":"Ark enerjisinin iş parçasına geçen oranıdır; EN 1011-1'e göre prosese bağlıdır (ör. TIG 0,6; MAG 0,8; TİG dışı örtülü elektrot 0,8; tozaltı 1,0)."}},{"@type":"Question","name":"What is thermal efficiency k?","acceptedAnswer":{"@type":"Answer","text":"The fraction of arc energy transferred to the workpiece; per EN 1011-1 it depends on the process (e.g. TIG 0.6, MAG 0.8, SMAW 0.8, SAW 1.0)."}}]}</script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" style="text-decoration:none;color:inherit">
+      <div class="brand-badge"><img src="/assets/varyos-mark.svg" alt="" width="20" height="20" /></div>
+      <div class="brand-word"><span class="brand-varyos">VARYOS</span><span class="brand-weld">WELD</span></div>
+    </a>
+  </header>
+  <main class="tool">
+    <div class="langbar"><button type="button" data-set-lang="tr" aria-pressed="true">Türkçe</button><button type="button" data-set-lang="en" aria-pressed="false">English</button></div>
+    <p><a href="/araclar/">&larr; <span lang="tr">Tüm araçlar</span><span lang="en">All tools</span></a></p>
+    <h1><span lang="tr">Kaynak Isı Girdisi Hesaplama (kJ/mm)</span><span lang="en">Welding Heat Input Calculator (kJ/mm)</span></h1>
+    <p><span lang="tr">Gerilim, akım ve kaynak hızından kJ/mm cinsinden ısı girdisini, prosese göre termal verimle hesaplayın.</span><span lang="en">Calculate heat input in kJ/mm from voltage, current and travel speed, with process thermal efficiency.</span></p>
+    <div class="card">
+      <div class="grid">
+      <label><span lang="tr">Proses</span><span lang="en">Process</span><select id="proc"><option value="0.8">111 SMAW (0,8)</option><option value="1.0">121 SAW (1,0)</option><option value="0.8" selected>131 MIG (0,8)</option><option value="0.8">135 MAG (0,8)</option><option value="0.8">136 FCAW (0,8)</option><option value="0.6">141 TIG (0,6)</option><option value="0.6">15 Plazma / Plasma (0,6)</option></select></label>
+      <label><span lang="tr">Gerilim U (V)</span><span lang="en">Voltage U (V)</span><input id="U" type="number" inputmode="decimal" step="any" value="25"></label>
+      <label><span lang="tr">Akım I (A)</span><span lang="en">Current I (A)</span><input id="I" type="number" inputmode="decimal" step="any" value="200"></label>
+      <label><span lang="tr">Hız v</span><span lang="en">Travel speed v</span><input id="v" type="number" inputmode="decimal" step="any" value="300"></label>
+      <label><span lang="tr">Hız birimi</span><span lang="en">Speed unit</span><select id="unit"><option value="60" selected>mm/dk · mm/min</option><option value="1">mm/s</option></select></label>
+      </div>
+    </div>
+    <div class="card" aria-live="polite">
+      <div class="result"><span id="o1">-</span> kJ/mm<small id="o2"></small></div><p id="o4" class="warn"></p>
+    </div>
+    <p class="disclaimer"><span lang="tr">Mühendislik ön hesabıdır; nihai değer WPS/standarda göre doğrulanmalıdır.</span><span lang="en">Engineering pre-calculation only; the final value must be verified against the WPS/standard.</span></p>
+    <h2><span lang="tr">Formül</span><span lang="en">Formula</span></h2>
+    <pre class="formula">Q [kJ/mm] = k · U · I / (v · 1000)
+U [V], I [A], v [mm/s]  (v[mm/s] = v[mm/min] / 60)</pre>
+    <h2><span lang="tr">Standart referansı</span><span lang="en">Standard reference</span></h2>
+    <p><span lang="tr">EN 1011-1 (Genel kılavuz, Ek C) / ISO/TR 17671-1; termal verim k: 111 = 0,8; 121 = 1,0; 131/135/136 = 0,8; 141 = 0,6; 15 = 0,6.</span><span lang="en">EN 1011-1 (General guidance, Annex C) / ISO/TR 17671-1; thermal efficiency k: 111 = 0.8; 121 = 1.0; 131/135/136 = 0.8; 141 = 0.6; 15 = 0.6.</span></p>
+    <h2><span lang="tr">Geçerlilik aralığı</span><span lang="en">Validity range</span></h2>
+    <p><span lang="tr">Sabit akım/gerilim ve sabit hız varsayılır. Darbeli akım veya salınımlı (weaving) kaynakta ortalama etkin değerler kullanın. Nihai k değeri WPS/standarda göre alınmalıdır.</span><span lang="en">Assumes steady current/voltage and constant travel speed. For pulsed or weaving welds use average effective values. The final k value must be taken from the WPS/standard.</span></p>
+    <h2><span lang="tr">Örnek hesap</span><span lang="en">Worked example</span></h2>
+    <p><span lang="tr">MAG (k = 0,8), 25 V, 200 A, 300 mm/dk (= 5 mm/s): Q = 0,8·25·200 / (5·1000) = 0.80 kJ/mm.</span><span lang="en">MAG (k = 0.8), 25 V, 200 A, 300 mm/min (= 5 mm/s): Q = 0.8·25·200 / (5·1000) = 0.80 kJ/mm.</span></p>
+    <h2><span lang="tr">Sık sorulan sorular</span><span lang="en">FAQ</span></h2>
+    <details><summary><span lang="tr">Isı girdisi neden önemli?</span><span lang="en">Why does heat input matter?</span></summary><p><span lang="tr">Isı girdisi soğuma hızını, ısıdan etkilenen bölgenin tokluk ve sertliğini belirler; çok düşükse sertleşme, çok yüksekse tokluk kaybı riski doğar.</span><span lang="en">It governs cooling rate and HAZ toughness/hardness: too low risks hardening, too high risks toughness loss.</span></p></details>
+    <details><summary><span lang="tr">Hızı mm/dk mı mm/s mi girmeliyim?</span><span lang="en">Should I enter speed in mm/min or mm/s?</span></summary><p><span lang="tr">İkisi de olur; araç birim seçimine göre mm/s'ye çevirir (mm/dk ÷ 60). Formül mm/s ister.</span><span lang="en">Either; the tool converts to mm/s (mm/min ÷ 60). The formula needs mm/s.</span></p></details>
+    <details><summary><span lang="tr">Termal verim k nedir?</span><span lang="en">What is thermal efficiency k?</span></summary><p><span lang="tr">Ark enerjisinin iş parçasına geçen oranıdır; EN 1011-1'e göre prosese bağlıdır (ör. TIG 0,6; MAG 0,8; TİG dışı örtülü elektrot 0,8; tozaltı 1,0).</span><span lang="en">The fraction of arc energy transferred to the workpiece; per EN 1011-1 it depends on the process (e.g. TIG 0.6, MAG 0.8, SMAW 0.8, SAW 1.0).</span></p></details>
+    <div class="cta-box card">
+  <h2><span lang="tr">Varyos Weld ile devam edin</span><span lang="en">Continue with Varyos Weld</span></h2>
+  <p><span lang="tr">Tüm bu hesapları kaydedin, malzeme kütüphanenizi oluşturun; doldurma metali tüketimi ve ön ısıtma tek uygulamada.</span><span lang="en">Save these calculations, build a material library; filler consumption and preheat in one app.</span></p>
+  <a class="cta-button" href="/app/"><span lang="tr">Web hesaplayıcıyı ücretsiz deneyin</span><span lang="en">Try the web calculator free</span></a><br>
+  <a href="https://varyosweld.com/"><span lang="tr">iOS uygulaması yakında</span><span lang="en">iOS app coming soon</span></a>
+</div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-links">
+      <a href="/araclar/">Araçlar / Tools</a><span class="sep">·</span>
+      <a href="/terms.html">Terms of Use</a><span class="sep">·</span>
+      <a href="/privacy.html">Privacy Policy (KVKK)</a>
+    </p>
+    <p class="footer-brand">Varyos Weld — varyosweld.com</p>
+  </footer>
+  <script src="/araclar/calc.js"></script>
+  <script src="/araclar/tools.js"></script>
+  <script>
+window.vwRender=function(){
+ var k=parseFloat(proc.value),U=vwNum('U'),I=vwNum('I'),v=vwNum('v'),div=parseFloat(unit.value);
+ if(!U||!I||!v||U<=0||I<=0||v<=0){o1.textContent='-';o2.textContent='';o4.textContent=L('Pozitif değerler girin.','Enter positive values.');return;}
+ var vs=v/div,q=Calc.heatInput(k,U,I,vs);
+ o1.textContent=q.toFixed(2);
+ o2.textContent='k = '+k+' · v = '+vs.toFixed(2)+' mm/s · '+(q*1000).toFixed(0)+' J/mm';
+ var w=[];
+ if(unit.value==='1'&&v>30)w.push(L('Hız çok yüksek görünüyor; mm/dk mı demek istediniz?','Speed looks very high; did you mean mm/min?'));
+ if(unit.value==='60'&&v<30)w.push(L('Hız çok düşük görünüyor; mm/s mi demek istediniz?','Speed looks very low; did you mean mm/s?'));
+ if(q>5)w.push(L('Isı girdisi olağan dışı yüksek (>5 kJ/mm); girişleri kontrol edin.','Unusually high heat input (>5 kJ/mm); check your inputs.'));
+ o4.innerHTML=w.join('<br>');
+};</script>
+</body>
+</html>

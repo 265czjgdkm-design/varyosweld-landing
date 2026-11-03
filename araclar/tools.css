@@ -1,0 +1,28 @@
+.tool{max-width:760px;margin:0 auto;padding:0 16px 48px;overflow-wrap:anywhere}
+.tool h1{font-size:clamp(24px,6vw,36px);margin:8px 0 12px;letter-spacing:-.5px}
+.tool h2{font-size:20px;margin:32px 0 10px}
+.tool p,.tool li{color:var(--text-muted)}
+.tool a{color:var(--accent)}
+.langbar{display:flex;gap:8px;margin:0 0 8px}
+.langbar button{background:var(--secondary);color:var(--text);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 14px;font-size:14px;font-weight:700;cursor:pointer}
+.langbar button[aria-pressed="true"]{background:var(--accent);color:#0B0F10}
+html[data-lang="tr"] [lang="en"],html[data-lang="en"] [lang="tr"]{display:none!important}
+.card{background:rgba(27,35,38,.7);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(min-width:560px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.grid label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--text-muted);min-width:0}
+.grid input,.grid select{width:100%;min-width:0;font-size:16px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:#0B0F10;color:var(--text)}
+.result{font-size:28px;font-weight:800;color:var(--text)}
+.result small{display:block;font-size:13px;font-weight:400;color:var(--text-muted)}
+.res-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);color:var(--text)}
+.res-row b{color:var(--accent)}
+.warn{color:#FFC857;font-size:14px;margin:6px 0}
+.formula{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;background:#0B0F10;border-radius:8px;padding:10px;overflow-x:auto;color:var(--text);max-width:100%}
+.disclaimer{font-size:13px;border-left:3px solid var(--accent);padding-left:10px}
+.cta-box{text-align:center;margin:32px 0}
+.cta-box .cta-button{margin:6px 0;max-width:100%}
+details{margin:8px 0}summary{cursor:pointer;color:var(--text);font-weight:700}
+.tool-list{display:grid;gap:12px}
+.tool-list a{display:block;text-decoration:none}
+.tool-list h3{margin:0 0 4px;color:var(--text)}
+.tool-list p{margin:0}
