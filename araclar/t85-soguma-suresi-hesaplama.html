@@ -35,7 +35,7 @@
       <label><span lang="tr">Isı girdisi Q (kJ/mm)</span><span lang="en">Heat input Q (kJ/mm)</span><input id="Q" type="number" inputmode="decimal" step="any" value="1.0"></label>
       <label><span lang="tr">Ön ısıtma T0 (°C)</span><span lang="en">Preheat T0 (°C)</span><input id="T0" type="number" inputmode="decimal" step="any" value="20"></label>
       <label><span lang="tr">Kalınlık d (mm)</span><span lang="en">Thickness d (mm)</span><input id="d" type="number" inputmode="decimal" step="any" value="20"></label>
-      <label><span lang="tr">Birleşim / paso</span><span lang="en">Joint / pass</span><select id="joint"><option value="1,1">Build-up / run on plate (F2=1, F3=1)</option><option value="0.9,0.9" selected>Butt, filling pass (0,9 / 0,9)</option><option value="0.67,0.67">T fillet (0,67 / 0,67)</option><option value="0.9,0.69">Corner fillet (0,9 / 0,69)</option></select></label>
+      <label><span lang="tr">Birleşim / paso</span><span lang="en">Joint / pass</span><select id="joint"><option value="1,1">Run on plate / build-up (F2=1, F3=1)</option><option value="0.9,0.9" selected>Butt weld between runs (F2=0.9, F3=0.9)</option></select></label>
       </div>
     </div>
     <div class="card" aria-live="polite">
@@ -48,11 +48,11 @@
 Q [kJ/mm], T0 [°C], d [mm], t8/5 [s]
 d < d_t → 2D, else 3D</pre>
     <h2><span lang="tr">Standart referansı</span><span lang="en">Standard reference</span></h2>
-    <p><span lang="tr">EN 1011-2 Ek D (bilgilendirici) / ISO/TR 17671-2. Şekil faktörleri: yığma 1/1, alın dolgu pasosu 0,9/0,9, T-fileto 0,67/0,67, köşe fileto 0,9/0,69 (F2/F3).</span><span lang="en">EN 1011-2 Annex D (informative) / ISO/TR 17671-2. Shape factors: build-up 1/1, butt filling pass 0.9/0.9, T fillet 0.67/0.67, corner fillet 0.9/0.69 (F2/F3).</span></p>
+    <p><span lang="tr">EN 1011-2 Ek D (bilgilendirici) / ISO/TR 17671-2. Şekil faktörleri (Tablo D.1): tek paso/yığma 1/1, alın kaynağı paso arası 0,9/0,9; fileto birleşimleri yalnızca aralık verildiği için dahil değildir.</span><span lang="en">EN 1011-2 Annex D (informative) / ISO/TR 17671-2. Shape factors (Table D.1): run on plate 1/1, butt weld between runs 0.9/0.9; fillet joints are not included because the standard gives only a range.</span></p>
     <h2><span lang="tr">Geçerlilik aralığı</span><span lang="en">Validity range</span></h2>
-    <p><span lang="tr">Alaşımsız ve düşük alaşımlı çelikler; sürekli ark, eşit kalınlık. 2D/3D geçişi geçiş kalınlığına göre belirlenir. Fileto F2 değerleri ısı girdisi/kalınlık oranıyla değişir; tablo değerleri yaklaşıktır.</span><span lang="en">Unalloyed and low-alloy steels; continuous arc, equal thickness. The 2D/3D choice follows the transition thickness. Fillet F2 varies with the heat input/thickness ratio; the table values are approximate.</span></p>
+    <p><span lang="tr">Alaşımsız ve düşük alaşımlı çelikler; sürekli ark, eşit kalınlık. 2D/3D geçişi geçiş kalınlığına göre belirlenir. Fileto birleşimleri kapsam dışıdır.</span><span lang="en">Unalloyed and low-alloy steels; continuous arc, equal thickness. The 2D/3D choice follows the transition thickness. Fillet joints are out of scope.</span></p>
     <h2><span lang="tr">Örnek hesap</span><span lang="en">Worked example</span></h2>
-    <p><span lang="tr">Q = 1,0 kJ/mm, T0 = 20 °C, alın dolgu pasosu (F = 0,9): 3D t8/5 = 4.8 s. d = 10 mm için 2D = 10.2 s (2D büyük, ince levha geçerli); d = 20 mm için 2D = 2.6 s (< 3D, 3D geçerli).</span><span lang="en">Q = 1.0 kJ/mm, T0 = 20 °C, butt filling pass (F = 0.9): 3D t8/5 = 4.8 s. For d = 10 mm 2D = 10.2 s (2D larger, thin plate governs); for d = 20 mm 2D = 2.6 s (< 3D, so 3D governs).</span></p>
+    <p><span lang="tr">Q = 1,0 kJ/mm, T0 = 20 °C, alın kaynağı paso arası (F = 0,9): 3D t8/5 = 4.8 s. d = 10 mm için 2D = 10.2 s (2D büyük, ince levha geçerli); d = 20 mm için 2D = 2.6 s (< 3D, 3D geçerli).</span><span lang="en">Q = 1.0 kJ/mm, T0 = 20 °C, butt weld between runs (F = 0.9): 3D t8/5 = 4.8 s. For d = 10 mm 2D = 10.2 s (2D larger, thin plate governs); for d = 20 mm 2D = 2.6 s (< 3D, so 3D governs).</span></p>
     <h2><span lang="tr">Sık sorulan sorular</span><span lang="en">FAQ</span></h2>
     <details><summary><span lang="tr">t8/5 nedir?</span><span lang="en">What is t8/5?</span></summary><p><span lang="tr">Kaynak ve ısıdan etkilenen bölgenin 800 °C'den 500 °C'ye soğuma süresidir; mikroyapıyı, sertliği ve tokluğu belirler.</span><span lang="en">The time the weld and HAZ take to cool from 800 °C to 500 °C; it controls microstructure, hardness and toughness.</span></p></details>
     <details><summary><span lang="tr">2D mi 3D mü kullanılır?</span><span lang="en">Is 2D or 3D used?</span></summary><p><span lang="tr">İnce levhada ısı akışı iki boyutlu, kalında üç boyutludur. Levha kalınlığı geçiş kalınlığından küçükse 2D, değilse 3D sonucu alınır.</span><span lang="en">Heat flow is two-dimensional in thin plate, three-dimensional in thick plate. Use 2D if thickness is below the transition thickness, else 3D.</span></p></details>
@@ -81,14 +81,14 @@ window.vwRender=function(){
  if(!q||!d||t0===null||q<=0||d<=0||t0>=500){o1.textContent='-';o2.textContent='';o4.textContent=L('Geçerli değerler girin (T0 < 500 °C).','Enter valid values (T0 < 500 °C).');return;}
  var jf=joint.value.split(',').map(parseFloat),f2=jf[0],f3=jf[1];
  var t3=Calc.t85_3D(q,t0,f3),t2=Calc.t85_2D(q,t0,d,f2);
- var dt=Math.sqrt((4300-4.3*t0)*1e5/((6700-5*t0)*q)*((1/Math.pow(500-t0,2)-1/Math.pow(800-t0,2))/(1/(500-t0)-1/(800-t0)))*(f2/f3));
+ var dt=Math.sqrt((4300-4.3*t0)*1e5/((6700-5*t0)*q)*((1/Math.pow(500-t0,2)-1/Math.pow(800-t0,2))/(1/(500-t0)-1/(800-t0)))*1);
  o3.textContent=t3.toFixed(1)+' s';o5.textContent=t2.toFixed(1)+' s';o6.textContent=dt.toFixed(1)+' mm';
  var thin=d<dt;o1.textContent=(thin?t2:t3).toFixed(1);
  o2.textContent=thin?L('İnce levha (2D) geçerli: d < geçiş kalınlığı','Thin plate (2D) governs: d < transition thickness'):L('Kalın levha (3D) geçerli: d ≥ geçiş kalınlığı','Thick plate (3D) governs: d ≥ transition thickness');
  var w=[];
  if(q<0.2||q>5)w.push(L('Isı girdisi tipik aralığın (0,2-5 kJ/mm) dışında.','Heat input is outside the typical range (0.2-5 kJ/mm).'));
  if(t0<20||t0>300)w.push(L('T0 olağan aralığın (20-300 °C) dışında.','T0 is outside the usual range (20-300 °C).'));
- w.push(L('Yalnızca alaşımsız/düşük alaşımlı çelikler için; eşit kalınlıklı levhalar varsayılır. Fileto için F2 ısı girdisi/kalınlık oranına bağlıdır (burada sabit alınmıştır).','Unalloyed/low-alloy steels only; equal plate thickness assumed. For fillets F2 depends on the heat input/thickness ratio (fixed here).'));
+ w.push(L('Yalnızca alaşımsız/düşük alaşımlı çelikler için; eşit kalınlıklı levhalar varsayılır.','Unalloyed/low-alloy steels only; equal plate thickness assumed.'));
  o4.innerHTML=w.join('<br>');
 };</script>
 </body>
